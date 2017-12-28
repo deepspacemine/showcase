@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled Document</title>
+<link href="css/mystyle.css" rel="stylesheet" type="text/css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+	jQuery('body').css('display','none');
+	jQuery(document).ready(function() {
+		jQuery('body').fadeIn();
+		jQuery('a').on('click',function(event){
+			var thetarget = this.getAttribute('target')
+			if (thetarget != "_blank"){			
+				var thehref = this.getAttribute('href')
+				event.preventDefault();
+				jQuery('body').fadeOut(function(){
+					//alert(thehref)
+					window.location = thehref					
+				});
+			}
+		});
+	});
+	setTimeout(function(){
+		jQuery('body').fadeIn(3000);
+	},1000)
+</script>
+	
+</head>
+
+<body>
+
+<div id="div1">
+<div class="topnav" id="myTopnav">
+  <a href="home.html" style="float: left; color: whitesmoke;" >Aegean Skates</a>
+	<a href="Sales.html">Sales</a>
+	<a href="support.html" >Support</a>
+	<a href="support.html" class="active">User page</a>
+  <a href="home.html">Community</a>
+  <a href="home.html">Accessories</a>
+  <a href="home.html">Boards</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+<div> <img src = "images/skate.JPG" alt="image of skater" ></div>
+</div>
+<h2 class="ptitle"> Admin Page       </h2>
+
+	
+	<div>
+<p>
+	   
+		</p>
+		<p>
+	This page  can only  be accessed when logged in.
+		</p>
+	
+		
+		<p>List of Items
+		<ul>
+			{{ range .}}
+			<li>
+			{{.}} 
+			
+			
+			</li>
+			{{end}}
+		<li></li></ul>
+		<p> ADD or 	Remove </p>
+		<form action="" method="post">
+    
+    <input id="logout" type="submit" value="Logout">
+</form>
+		</p>
+
+	</div>
+<footer class="footer1">copyright</footer>
+</body>
+</html>

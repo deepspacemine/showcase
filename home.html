@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled Document</title>
+<link href="css/mystyle.css" rel="stylesheet" type="text/css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+	jQuery('body').css('display','none');
+	jQuery(document).ready(function() {
+		jQuery('body').fadeIn();
+		jQuery('a').on('click',function(event){
+			var thetarget = this.getAttribute('target')
+			if (thetarget != "_blank"){			
+				var thehref = this.getAttribute('href')
+				event.preventDefault();
+				jQuery('body').fadeOut(function(){
+					//alert(thehref)
+					window.location = thehref					
+				});
+			}
+		});
+	});
+	setTimeout(function(){
+		jQuery('body').fadeIn(3000);
+	},1000)
+</script>
+	
+
+	
+</head>
+
+<body>
+
+<div id="div1">
+<div class="topnav" id="myTopnav">
+  <a href="home.html" style="float: left; color: whitesmoke;" >Aegean Skates</a>
+	<a href="home.html">Sales</a>
+	<a href="support.html">Support</a>
+  <a href="home.html">Community</a>
+  <a href="home.html" target="_self">Accessories</a>
+  <a href="home.html">Boards</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+<div> <a href="skate.JPG"><img src = "images/skate.JPG" alt="image of skater" ></a></div>
+</div>
+<h2 class="ptitle"> A little about Rob Dyrdek</h2>
+	<h3><a href="userpage.html">Login</a> {{.}} </h3>
+<p >
+		
+	The relentless pursuit of his childhood dreams made Rob Dyrdek a professional athlete at 16 years old and propelled him into the world of business before most people entered college. Surrounded by entrepreneurs in his youth, Dyrdek quickly learned the power of building brands.
+</p>	
+	
+<footer class="footer1">copyright</footer>
+</body>
+</html>
