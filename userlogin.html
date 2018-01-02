@@ -5,27 +5,7 @@
 <title>Untitled Document</title>
 <link href="css/mystyle.css" rel="stylesheet" type="text/css">
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>
-	jQuery('body').css('display','none');
-	jQuery(document).ready(function() {
-		jQuery('body').fadeIn();
-		jQuery('a').on('click',function(event){
-			var thetarget = this.getAttribute('target')
-			if (thetarget != "_blank"){			
-				var thehref = this.getAttribute('href')
-				event.preventDefault();
-				jQuery('body').fadeOut(function(){
-					//alert(thehref)
-					window.location = thehref					
-				});
-			}
-		});
-	});
-	setTimeout(function(){
-		jQuery('body').fadeIn(3000);
-	},1000)
-</script>
+
 	
 </head>
 
@@ -40,7 +20,7 @@
   <a href="home.html">Community</a>
   <a href="home.html">Accessories</a>
   <a href="home.html">Boards</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+
 </div>
 <div> <img src = "images/skate.JPG" alt="image of skater" ></div>
 </div>
@@ -58,19 +38,48 @@
 		
 		<p>List of Items
 		<ul>
-			{{ range .}}
+			
 			<li>
-			{{.}} 
-			
-			
+			 
 			</li>
-			{{end}}
-		<li></li></ul>
-		<p> ADD or 	Remove </p>
-		<form action="" method="post">
-    
-    <input id="logout" type="submit" value="Logout">
-</form>
+			<div style="overflow-x:auto">
+<table   width="100%" border-collapse="collapse" border="10" boarder bordercolor="#E15231"  cellpadding="8" text-align= "left">
+  <tbody>
+    <tr > 
+		{{ range .Idslice}}
+      <td>TopSlice &nbsp; {{.}}</td>
+		{{end}}
+	
+	</tr>
+	{{ $bars:= .Slicename}}
+	{{range $bar, $element := $bars}}
+
+	<tr>
+		<td>{{$bar}}&nbsp;</td>
+		
+		<td>{{$element}}&nbsp;</td>
+		<td><form action="" method="POST">
+			<br>
+			<input type="hidden" name="pressbut" value="{{$bar}}">
+			<input type="submit" value="Remove">
+		  </form> </td>
+		   </tr>{{end}}
+   
+    </tbody>
+</table>
+
+<form action="" method="POST" >
+
+	<br>New User:
+	<input type="text" name="newuser" value="">
+	<br><br>
+	<input type="submit" value="Add">
+  </form>
+
+
+	</div>
+	
+			<p> ADD new user </p>
 		</p>
 
 	</div>
