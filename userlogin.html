@@ -39,11 +39,8 @@
 		<p>List of Items
 		<ul>
 			
-			<li>
-			 
-			</li>
 			<div style="overflow-x:auto">
-<table   width="100%" border-collapse="collapse" border="10" boarder bordercolor="#E15231"  cellpadding="8" text-align= "left">
+<table>
   <tbody>
     <tr > 
 		{{ range .Idslice}}
@@ -81,7 +78,10 @@
 	
 			<p> ADD new user </p>
 		</p>
-
+	<form action="" method="POST">
+    
+    <input name="logout" type="submit" value="logout">
+</form> 
 	</div>
 <footer class="footer1">copyright</footer>
 </body>
