@@ -46,10 +46,8 @@ func userpagePageHandler(w http.ResponseWriter, r *http.Request) {
 
 	//user form
 	valusername := r.FormValue("username")
-	valpassword := r.FormValue("password")
-	setpage := 0
 
-	fmt.Println("value", valusername, valpassword)
+	setpage := 0
 
 	//welcomemessage := "Welcome " + valusername
 	faillogin := "Login failed " + valusername
@@ -67,7 +65,8 @@ func userpagePageHandler(w http.ResponseWriter, r *http.Request) {
 		if r.FormValue("username") == "cull@example.com" && r.FormValue("password") == "makethefuture" {
 			setpage = 3
 			session.Values["logged_in"] = r.FormValue("username")
-			fmt.Println(" password pass", session.Values)
+
+			session.Save(r, w)
 
 		} else if r.FormValue("username") == "" && r.FormValue("password") == "" {
 			setpage = 0
@@ -75,7 +74,7 @@ func userpagePageHandler(w http.ResponseWriter, r *http.Request) {
 			setpage = 2
 		}
 	}
-	session.Save(r, w)
+
 	//io.WriteString(w,)
 	//displaypage
 
@@ -84,28 +83,26 @@ func userpagePageHandler(w http.ResponseWriter, r *http.Request) {
 		//t := tmpls.Lookup("userlogin.html")
 
 		//t.ExecuteTemplate(w, "userlogin.html", tl1)
-		fmt.Println("I ran 3")
+
 		http.Redirect(w, r, "/userlogin.html", 301)
 
 	case 2:
 		t := tmpls.Lookup("userpage.html")
-		fmt.Println("I fail run")
+
 		t.Execute(w, faillogin)
 
 	case 0:
 
-		fmt.Println("current", session)
 		t := tmpls.Lookup("userpage.html")
 		t.Execute(w, "enter password")
 	}
 	if r.Method == "POST" {
 		if r.FormValue("logout") == "logout" {
-			session, _ := store.Get(r, "session")
-			delete(session.Values, "logged_in")
+
 			session.Save(r, w)
 			t := tmpls.Lookup("userpage.html")
 			t.Execute(w, "enter password")
-
+			session.Options.MaxAge = -1
 			setpage = 2
 		}
 	}
@@ -139,10 +136,9 @@ func dSlicer(slice1 *Testlist, userRemove int) Testlist {
 			slice1.Slicename = slice1.Slicename[:len(slice1.Slicename)-1]
 
 		} else {
-			fmt.Println("remove middle", userRemove, len(slice1.Slicename))
 
-			low := slice1.Slicename[:userRemove-1]
-			high := slice1.Slicename[userRemove:]
+			low := slice1.Slicename[:userRemove]
+			high := slice1.Slicename[userRemove+1:]
 			slice1.Slicename = append(low, high...)
 		}
 	}
@@ -161,24 +157,34 @@ func slicer(slice1 *Testlist, userAdd string) Testlist {
 
 func userloginPageHandler(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "session")
+
 	if session.Values["logged_in"] == "cull@example.com" {
 		removetest := 200
 		t := tmpls.Lookup("userlogin.html")
-		if r.Method != "GET" && r.FormValue("pressbut") != "" {
+
+		if r.Method == "POST" && r.FormValue("pressbut") != "" {
 			removetest, _ := strconv.Atoi(r.FormValue("pressbut"))
 			tl1 = dSlicer(&tl1, removetest)
 			fmt.Println(" post 1", removetest, tl1)
 			t.ExecuteTemplate(w, "userlogin.html", tl1)
-		} else if r.Method != "GET" && r.FormValue("newuser") != "" {
+		} else if r.Method == "POST" && r.FormValue("newuser") != "" {
 			adduser := r.FormValue("newuser")
 			tl1 = slicer(&tl1, adduser)
-			fmt.Println("\n before", tl1, adduser)
+
 			t.ExecuteTemplate(w, "userlogin.html", tl1)
+		} else if r.Method == "POST" && r.FormValue("logout") == "logout" {
+			session.Values["logged_in"] = "no"
+			session.Options.MaxAge = -1
+			session.Save(r, w)
+			t := tmpls.Lookup("userpage.html")
+			t.Execute(w, "enter password")
+
 		} else {
 
 			t.ExecuteTemplate(w, "userlogin.html", tl1)
 		}
 		fmt.Println("\n before", tl1, removetest)
+
 	} else {
 		http.Redirect(w, r, "/", 301)
 
