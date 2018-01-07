@@ -1,20 +1,22 @@
 @charset "utf-8";
 /* CSS Document */
 
-footer{
+.footer1{
 	padding-left:10px;
 	padding-right: 160px;
-	margin-left: 10;
+	margin: 10px;
 	
-	
+	}
+
+a {
+	text-decoration: none;
 }
  h2, p, form{
-	padding-left:80px;
-	padding-right: 160px;
-	margin-left: 10;
+	padding:8px;
+		margin-left: 10px;
 }
 
-body {margin:0;
+body {margin:0px;
 	
 }
 
@@ -22,9 +24,44 @@ img {
  width: 100%;
     height: auto;
 	
+	  
 	
+}
+table {
+	box-shadow: 1px 2px 8px;
+		width:80%;
+	border-collapse:collapse;
+	
+		
+}
+table, th, td {
+    border: 1px solid black;
+       
+		
+	border-collapse:collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table tr:nth-child(even) {
+    background-color: #eee;
     
-	
+}
+table tr:nth-child(odd) {
+   background-color:#fff;
+}
+
+tr:hover{
+	box-shadow: 10px 5px 10px;
+text-decoration: underline;
+
+	background-color: #B29760;
+
+}
+table th {
+    background-color: black;
+    color: white;
 }
 
 .topnav {
@@ -46,14 +83,41 @@ img {
 	font-weight:bold;
 }
 
+ .login{
+	 align-content: center;
+	 text-align: center;
+	 margin-left:  10px;
+	 display: inline-block;
+	 width: 80px;
+	 color:black;
+	background-color: #E15231;
+	 border-radius: 10px;
+	
+	
+	box-shadow: 1px 2px 8px;
+	
+		
+	
+}
+.login:hover{
+	box-shadow: 2px 4px 8px;
+	background-color:#EED39E;
+}
 .topnav a:hover {
-  background-color: #A78955;
+  background-color: #eed39e;
   color: black;
+	display: inline-block;
+	padding-top: 12px;
+	  padding-bottom: 14px;
+border-radius: 16px;
+	box-shadow: -2px 4px 10px;
+	
 }
 
 .active {
-  background-color:#5F5766;
+  background-color:#B29760;
   color: white;
+	border-radius: 16px
 }
 
 .topnav .icon {
@@ -85,3 +149,4 @@ img {
   }
 
 }
+
